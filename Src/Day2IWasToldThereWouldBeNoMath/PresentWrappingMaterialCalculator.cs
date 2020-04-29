@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace Day2IWasToldThereWouldBeNoMath
@@ -17,7 +16,6 @@ namespace Day2IWasToldThereWouldBeNoMath
         {
             return boxes.Select(b => b.GetRequiredSquareFeetOfWrappingPaper()).Sum();
         }
-
         internal decimal GetRequiredFeetOfRibbon()
         {
             return boxes.Select(b => b.GetRequiredFeetOfRibbon()).Sum();
