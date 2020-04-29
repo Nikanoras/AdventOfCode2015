@@ -2,11 +2,11 @@
 
 namespace Day2IWasToldThereWouldBeNoMath
 {
-    public abstract class RectangularCuboid
+    internal abstract class RectangularCuboid
     {
         private const int NumberOfOppositeSides = 2;
 
-        protected RectangularCuboid(decimal length, decimal width, decimal height)
+        internal protected RectangularCuboid(decimal length, decimal width, decimal height)
         {
             Length = length;
             Width = width;
@@ -20,31 +20,29 @@ namespace Day2IWasToldThereWouldBeNoMath
         private decimal TopOrBottomSideArea => Length * Width;
         private decimal FrontOrBackSideArea => Width * Height;
         private decimal LeftOrRightSideArea => Height * Length;
+        private decimal TopOrBottomSidePerimeter => 2 * (Length + Width);
+        private decimal FrontOrBackSidePerimeter => 2 * (Width + Height);
+        private decimal LeftOrRightSidePerimeter => 2 * (Height + Length);
 
-        protected decimal SurfaceArea => NumberOfOppositeSides * (TopOrBottomSideArea + FrontOrBackSideArea + LeftOrRightSideArea);
+        internal protected decimal SurfaceArea => NumberOfOppositeSides * (TopOrBottomSideArea + FrontOrBackSideArea + LeftOrRightSideArea);
+        internal protected decimal Volume => Length * Width * Height;
 
-        protected decimal TopOrBottomSidePerimeter => 2 * (Length + Width);
-        protected decimal FrontOrBackSidePerimeter => 2 * (Width + Height);
-        protected decimal LeftOrRightSidePerimeter => 2 * (Height + Length);
-
-        protected decimal Volume => Length * Width * Height;
-
-        protected decimal GetSmallestSideArea()
+        internal protected decimal GetSmallestSideArea()
         {
-            decimal[] sideAreas = { TopOrBottomSideArea, FrontOrBackSideArea, LeftOrRightSideArea };
-
-            decimal smallestSideArea = sideAreas.Min();
+            decimal smallestSideArea = GetLowestValue(TopOrBottomSideArea, FrontOrBackSideArea, LeftOrRightSideArea);
 
             return smallestSideArea;
         }
-
-        protected decimal GetSmallestSidePerimeter()
+        internal protected decimal GetSmallestSidePerimeter()
         {
-            decimal[] sideAreas = { TopOrBottomSidePerimeter, FrontOrBackSidePerimeter, LeftOrRightSidePerimeter };
+            decimal smallestSidePerimeter = GetLowestValue(TopOrBottomSidePerimeter, FrontOrBackSidePerimeter, LeftOrRightSidePerimeter);
 
-            decimal smallestSideArea = sideAreas.Min();
+            return smallestSidePerimeter;
+        }
 
-            return smallestSideArea;
+        private decimal GetLowestValue(params decimal[] values)
+        {
+            return values.Min();
         }
     }
 }

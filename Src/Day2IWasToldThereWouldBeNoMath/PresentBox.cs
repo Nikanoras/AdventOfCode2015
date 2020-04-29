@@ -1,19 +1,16 @@
-﻿using System;
-using System.Linq;
-
-namespace Day2IWasToldThereWouldBeNoMath
+﻿namespace Day2IWasToldThereWouldBeNoMath
 {
     internal sealed class PresentBox : RectangularCuboid
     {
-        public PresentBox(decimal length, decimal width, decimal height) : base(length, width, height)
+        internal PresentBox(decimal length, decimal width, decimal height) : base(length, width, height)
         {
         }
 
-        public decimal GetRequiredSquareFeetOfWrappingPaper()
+        internal decimal GetRequiredSquareFeetOfWrappingPaper()
         {
             return SurfaceArea + GetSmallestSideArea();
         }
-        public decimal GetRequiredFeetOfRibbon()
+        internal decimal GetRequiredFeetOfRibbon()
         {
             return Volume + GetSmallestSidePerimeter();
         }

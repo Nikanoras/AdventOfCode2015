@@ -5,9 +5,9 @@ using System.Linq;
 
 namespace Day2IWasToldThereWouldBeNoMath
 {
-    class Program
+    internal static class Program
     {
-        static void Main(string[] args)
+        internal static void Main(string[] args)
         {
             string[] input = File.ReadAllLines("input.txt");
             

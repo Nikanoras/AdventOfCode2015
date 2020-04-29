@@ -8,7 +8,7 @@ namespace Day2IWasToldThereWouldBeNoMath
     {
         private readonly IEnumerable<PresentBox> boxes;
 
-        public PresentWrappingMaterialCalculator(IEnumerable<PresentBox> boxes)
+        internal PresentWrappingMaterialCalculator(IEnumerable<PresentBox> boxes)
         {
             this.boxes = boxes;
         }
