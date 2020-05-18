@@ -5,45 +5,49 @@ using System.Text.RegularExpressions;
 
 namespace Day6ProbablyAFireHazard
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        internal static void Main(string[] args)
         {
-            var input = File.ReadAllLines("input.txt");
-            //string[] input = { "turn on 0,0 through 999,999" };
-            var lights = new Lights();
-            foreach (var item in input)
+            string[] values = File.ReadAllLines("input.txt");
+            
+            // --- Part One ---
+            var switchatbleLightsGarland = new ThreeStateGarland();
+            foreach (var value in values)
             {
-                Instruction instruction = GetInstruction(item);
-                lights.ChangeLights(instruction);
+                Instruction instruction = GetInstruction(value);
+                switchatbleLightsGarland.SwitchLights(instruction);
             }
+            Console.WriteLine(switchatbleLightsGarland.GetCountOfLightsLit());
 
-            Console.WriteLine(lights.GetCountOfLitLights());
+            // --- Part Two ---
+            var brightnessRegulatableGarland = new AdjustableBrightnessGarland();
+            foreach (var value in values)
+            {
+                Instruction instruction = GetInstruction(value);
+                brightnessRegulatableGarland.IncreaseBrightness(instruction);
+            }
+            Console.WriteLine(brightnessRegulatableGarland.GetTotalBrightness());
+        }
+        private static Action GetAction(string action)
+        {
+            return action switch
+            {
+                "turn off" => Action.TurnOff,
+                "turn on" => Action.TurnOn,
+                "toggle" => Action.Toggle,
+                _ => throw new ArgumentException("Invalid argument", nameof(action)),
+            };
         }
 
-        private static Instruction GetInstruction(string item)
+        private static Instruction GetInstruction(string value)
         {
-            string action = Regex.Match(item, @"^.*?(?=[0-9])").Value.Trim();
-            string[] matches = Regex.Matches(item, @"[0-9]+[,0-9]*").Select(c => c.Value).ToArray();
+            string action = Regex.Match(value, @"^.*?(?=[0-9])").Value.Trim();
+            string[] matches = Regex.Matches(value, @"[0-9]+[,0-9]*").Select(c => c.Value).ToArray();
             string[] coordiantes = string.Join(',', matches).Split(',');
-            var fromCoordaintes = new Coordianates(int.Parse(coordiantes[0]), int.Parse(coordiantes[1]));
-            var toCoordinates = new Coordianates(int.Parse(coordiantes[2]), int.Parse(coordiantes[3]));
+            var fromCoordaintes = new LightCoordianates(int.Parse(coordiantes[0]), int.Parse(coordiantes[1]));
+            var toCoordinates = new LightCoordianates(int.Parse(coordiantes[2]), int.Parse(coordiantes[3]));
             return new Instruction(GetAction(action), fromCoordaintes, toCoordinates);
-        }
-
-        internal static Action GetAction(string action)
-        {
-            switch (action)
-            {
-                case "turn off":
-                    return Action.TurnOff;
-                case "turn on":
-                    return Action.TurnOn;
-                case "toggle":
-                    return Action.Toggle;
-                default:
-                    throw new ArgumentException("Invalid argument", nameof(action));
-            }
         }
     }
 }

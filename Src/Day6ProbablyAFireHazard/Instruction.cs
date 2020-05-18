@@ -1,16 +1,16 @@
 ﻿namespace Day6ProbablyAFireHazard
 {
-    class Instruction
+    internal sealed class Instruction
     {
-        public Instruction(Action action, Coordianates from, Coordianates toCoordinates)
+        internal Instruction(Action action, LightCoordianates lightCoordinatesFrom, LightCoordianates lightCoordinatesTo)
         {
             Action = action;
-            From = from;
-            ToCoordinates = toCoordinates;
+            LightCoordinatesFrom = lightCoordinatesFrom;
+            LightCoordinatesTo = lightCoordinatesTo;
         }
 
-        public Action Action { get; private set; }
-        public Coordianates From { get; private set; }
-        public Coordianates ToCoordinates { get; private set; }
+        internal Action Action { get; }
+        internal LightCoordianates LightCoordinatesFrom { get; }
+        internal LightCoordianates LightCoordinatesTo { get; }
     }
 }
