@@ -12,22 +12,22 @@ namespace Day6ProbablyAFireHazard
             string[] values = File.ReadAllLines("input.txt");
             
             // --- Part One ---
-            var switchatbleLightsGarland = new ThreeStateGarland();
+            var simpleGarland = new SimpleGarland();
             foreach (var value in values)
             {
                 Instruction instruction = GetInstruction(value);
-                switchatbleLightsGarland.SwitchLights(instruction);
+                simpleGarland.SwitchLights(instruction);
             }
-            Console.WriteLine(switchatbleLightsGarland.GetCountOfLightsLit());
+            Console.WriteLine(simpleGarland.GetCountOfLightsLit());
 
             // --- Part Two ---
-            var brightnessRegulatableGarland = new AdjustableBrightnessGarland();
+            var adjustableBrightnessGarland = new AdjustableBrightnessGarland();
             foreach (var value in values)
             {
                 Instruction instruction = GetInstruction(value);
-                brightnessRegulatableGarland.IncreaseBrightness(instruction);
+                adjustableBrightnessGarland.IncreaseBrightness(instruction);
             }
-            Console.WriteLine(brightnessRegulatableGarland.GetTotalBrightness());
+            Console.WriteLine(adjustableBrightnessGarland.GetTotalBrightness());
         }
         private static Action GetAction(string action)
         {
@@ -39,7 +39,6 @@ namespace Day6ProbablyAFireHazard
                 _ => throw new ArgumentException("Invalid argument", nameof(action)),
             };
         }
-
         private static Instruction GetInstruction(string value)
         {
             string action = Regex.Match(value, @"^.*?(?=[0-9])").Value.Trim();

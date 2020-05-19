@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Day6ProbablyAFireHazard
 {
-    internal sealed class ThreeStateGarland : Garland
+    internal sealed class SimpleGarland : Garland
     {
         internal void SwitchLights(Instruction instruction)
         {
